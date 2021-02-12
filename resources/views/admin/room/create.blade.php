@@ -22,17 +22,17 @@
 
                         <form action="{{ route('admin.rooms.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
-
-                            <div class="mb-3">
-                                <label for="room_name">Room Name</label>
-                                <input type="text" class="form-control" placeholder="Room Name" id="room_name"
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Room Name</span>
+                                <input type="text" class="form-control" aria-label="room_name"
                                        name="room_name">
                             </div>
 
-                            <div class="mb-3">
-                                <label for="room_capacity">Room Capacity</label>
+                            <label for="room_capacity">Room Capacity</label>
+                            <div class="input-group mb-3">
                                 <input type="number" class="form-control" placeholder="Room Capacity" id="room_capacity"
                                        name="room_capacity">
+                                <span class="input-group-text">Person</span>
                             </div>
 
                             <div class="mb-3">

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\RoomsController;
+use App\Http\Controllers\BookingsController;
+use App\Http\Controllers\UserRoomController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,5 +26,14 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('admin')->middleware(['auth', 'auth.isAdmin'])->name('admin.')->group(function () {
-    Route::resource('/rooms', \App\Http\Controllers\Admin\RoomsController::class);
+    Route::resource('/rooms', RoomsController::class);
+});
+
+Route::prefix('user')->middleware('auth')->name('user.')->group(function () {
+    Route::resource('/bookings', BookingsController::class)
+    ->except(['create']);
+    Route::get('/bookings/room/{room}', [BookingsController::class, 'createBooking'])
+        ->name('bookings.createBooking');
+    Route::resource('/rooms', UserRoomController::class)
+        ->except(['create', 'store', 'edit', 'update', 'destroy']);
 });

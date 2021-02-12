@@ -17,9 +17,9 @@ class CreateBookingsTable extends Migration
             $table->id();
             $table->integer('total_person')->nullable();
             $table->text('note')->nullable();
-            $table->date('booking_time')->nullable();
-            $table->date('check_in_time')->nullable();
-            $table->date('check_out_time')->nullable();
+            $table->dateTime('booking_time')->nullable();
+            $table->dateTime('check_in_time')->nullable();
+            $table->dateTime('check_out_time')->nullable();
 
             $table->unsignedBigInteger('room_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
