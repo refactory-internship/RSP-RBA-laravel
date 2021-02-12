@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\RoomsController;
 use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\UserRoomController;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 

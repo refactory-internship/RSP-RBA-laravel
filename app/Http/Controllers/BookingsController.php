@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\BookingDetails;
 use App\Models\Booking;
 use App\Models\Room;
 use Illuminate\Contracts\Foundation\Application;
@@ -10,6 +11,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class BookingsController extends Controller
 {
@@ -52,12 +54,12 @@ class BookingsController extends Controller
     {
         //
         $room = Room::find($request->room_id);
-
+        $user = Auth::user();
         if ($request->total_person > $room->room_capacity) {
             return redirect()->back()->with('error', "Total person is more than the room's capacity!");
         } else {
             Booking::create([
-                'user_id' => Auth::user()->id,
+                'user_id' => $user->id,
                 'room_id' => $room->id,
                 'total_person' => $request->total_person,
                 'note' => $request->note,
@@ -65,6 +67,8 @@ class BookingsController extends Controller
                 'check_in_time' => date_create($request->booking_time)->setTime(9, 00),
                 'check_out_time' => date_create($request->booking_time)->setTime(16, 00)
             ]);
+
+            Mail::to($user->email)->send(new BookingDetails());
 
             return redirect()->back()->with('message', 'Your booking has been stored successfully!');
         }
