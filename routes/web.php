@@ -30,7 +30,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.isAdmin'])->name('admin.')->gr
     Route::resource('/rooms', RoomsController::class);
 });
 
-Route::prefix('user')->middleware('auth')->name('user.')->group(function () {
+Route::prefix('user')->middleware(['auth', 'auth.isAuthorizedGuest'])->name('user.')->group(function () {
     Route::resource('/bookings', BookingsController::class)
     ->except(['create']);
     Route::get('/bookings/room/{room}', [BookingsController::class, 'createBooking'])

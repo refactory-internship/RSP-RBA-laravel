@@ -85,9 +85,10 @@ class BookingsController extends Controller
      * @param \App\Models\Booking $booking
      * @return Application|Factory|View|Response
      */
-    public function show(Booking $booking)
+    public function show($id)
     {
         //
+        $booking = Booking::find($id);
         return view('user.booking.show', compact('booking'));
     }
 
@@ -97,9 +98,10 @@ class BookingsController extends Controller
      * @param \App\Models\Booking $booking
      * @return Application|Factory|View|Response
      */
-    public function edit(Booking $booking)
+    public function edit($id)
     {
         //
+        $booking = Booking::find($id);
         return view('user.booking.edit', compact('booking'));
     }
 
@@ -110,10 +112,11 @@ class BookingsController extends Controller
      * @param \App\Models\Booking $booking
      * @return RedirectResponse
      */
-    public function update(Request $request, Booking $booking)
+    public function update(Request $request, $id)
     {
         //
         $user = Auth::user();
+        $booking = Booking::find($id);
         if ($request->total_person > $booking->room->room_capacity) {
             return redirect()->back()->with('error', "Total person is more than the room's capacity!");
         } else {
