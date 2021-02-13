@@ -11,7 +11,14 @@ class Booking extends Model
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
-    protected $dates = ['booking_time', 'check_in_time', 'check_out_time', 'deleted_at'];
+    protected $dates = [
+        'booking_time',
+        'check_in_time',
+        'check_out_time',
+        'deleted_at'];
+    protected $casts = [
+        'isCheckedIn' => 'boolean'
+    ];
 
     public function getFormattedBookingTime()
     {

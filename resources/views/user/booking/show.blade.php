@@ -49,7 +49,18 @@
                                 <i class="fa fa-pencil"></i>
                                 Edit
                             </a>
+                            <button type="submit" class="btn btn-outline-success float-right"
+                                    onclick="event.preventDefault();
+                                    document.getElementById('checkInBooking').submit()">
+                                <i class="fa fa-check"></i>
+                                Check-In!
+                            </button>
                         </div>
+                        <form action="{{ route('user.bookings.checkIn', $booking->id) }}"
+                              method="post"
+                              id="checkInBooking">
+                            @csrf
+                        </form>
                     </div>
                 </div>
             </div>

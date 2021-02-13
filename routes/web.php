@@ -35,6 +35,8 @@ Route::prefix('user')->middleware(['auth', 'auth.isAuthorizedGuest'])->name('use
     ->except(['create']);
     Route::get('/bookings/room/{room}', [BookingsController::class, 'createBooking'])
         ->name('bookings.createBooking');
+    Route::post('/bookings/{booking}', [BookingsController::class, 'checkIn'])
+        ->name('bookings.checkIn');
     Route::resource('/rooms', UserRoomController::class)
         ->except(['create', 'store', 'edit', 'update', 'destroy']);
 });

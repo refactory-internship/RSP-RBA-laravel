@@ -7,7 +7,7 @@
                     <div class="card-header">
                         Your Bookings
                     </div>
-                    <div class="card-body m-3">
+                    <div class="card-body m-3 text-center">
                         <table class="table table-hover" aria-describedby="bookings table">
                             <thead>
                             <tr>
@@ -16,6 +16,7 @@
                                 <th scope="col">Booking Time</th>
                                 <th scope="col">Check-In Time</th>
                                 <th scope="col">Check-Out Time</th>
+                                <th scope="col">Finished</th>
                                 <th scope="col"></th>
                             </tr>
                             </thead>
@@ -27,6 +28,7 @@
                                     <td>{{ date('j/m/Y', strtotime($data->booking_time)) }}</td>
                                     <td>{{ date('j/m/Y, G:i', strtotime($data->check_in_time)) }}</td>
                                     <td>{{ date('j/m/Y, G:i', strtotime($data->check_out_time)) }}</td>
+                                    <td><i class="fa {{ ($data->isCheckedIn) ? 'fa-check text-success' : 'fa-ban text-danger' }}"></i></td>
                                     <td>
                                         <div class="btn-group">
                                             <a href="{{ route('user.bookings.show', $data->id) }}"
@@ -41,7 +43,12 @@
                             </tbody>
                         </table>
                         {{ $booking->links() }}
-                        @if(session()->has('error'))
+                        @if(session()->has('message'))
+                            <div class="alert alert-success">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                {{ session()->get('message') }}
+                            </div>
+                        @elseif(session()->has('error'))
                             <div class="alert alert-danger">
                                 <button type="button" class="close" data-dismiss="alert">×</button>
                                 {{ session()->get('error') }}

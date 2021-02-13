@@ -25,8 +25,9 @@ class CreateBookingsTable extends Migration
             $table->dateTime('booking_time')->nullable();
             $table->dateTime('check_in_time')->nullable();
             $table->dateTime('check_out_time')->nullable();
-            $table->dateTime('deleted_at')->nullable();
+            $table->boolean('isCheckedIn')->default(0);
             $table->timestamps();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

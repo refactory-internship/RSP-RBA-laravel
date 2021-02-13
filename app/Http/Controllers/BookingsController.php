@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\BookingDetails;
 use App\Mail\BookingUpdateMail;
+use App\Mail\CheckInMail;
 use App\Models\Booking;
 use App\Models\Room;
 use Illuminate\Contracts\Foundation\Application;
@@ -26,18 +27,10 @@ class BookingsController extends Controller
     {
         //
         $user = Auth::user();
-        $booking = Booking::where('user_id', $user->id)->orderBy('booking_time', 'ASC')->paginate(5);
+        $booking = Booking::where('user_id', $user->id)
+            ->where('isCheckedIn', false)
+            ->orderBy('booking_time', 'ASC')->paginate(5);
         return view('user.booking.index', compact('booking'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Application|Factory|View|Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -138,10 +131,23 @@ class BookingsController extends Controller
      * @param \App\Models\Booking $booking
      * @return Application|Factory|View|RedirectResponse
      */
-    public function destroy(Booking $booking)
+    public function destroy($id)
     {
         //
+        $booking = Booking::find($id);
         $booking->delete();
         return redirect('user/bookings')->with('error', 'Your booking has been cancelled!');
+    }
+
+    public function checkIn($id)
+    {
+        $user = Auth::user();
+        $booking = Booking::find($id);
+        $booking->update([
+            'isCheckedIn' => true
+        ]);
+
+        Mail::to($user->email)->send(new CheckInMail());
+        return redirect('/user/bookings')->with('message', 'You have been checked in!');
     }
 }
