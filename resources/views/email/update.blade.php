@@ -1,7 +1,7 @@
 @component('mail::message')
 Hello, **{{ $user->email }}**
 
-Thank you for booking our room!
+This is the details of your recently updated booking!
 
 @component('mail::table')
 |                         |                                                                   |

@@ -4,12 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Booking extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $guarded = [];
+    protected $dates = ['booking_time', 'check_in_time', 'check_out_time', 'deleted_at'];
+
+    public function getFormattedBookingTime()
+    {
+        return $this->booking_time->format('Y-m-d');
+    }
 
     public function user()
     {

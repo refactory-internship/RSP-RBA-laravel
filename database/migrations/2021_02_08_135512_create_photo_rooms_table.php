@@ -15,11 +15,12 @@ class CreatePhotoRoomsTable extends Migration
     {
         Schema::create('photo_rooms', function (Blueprint $table) {
             $table->id();
-            $table->string('photo')->nullable();
-
             $table->unsignedBigInteger('room_id')->nullable();
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('CASCADE');
+
+            $table->string('photo')->nullable();
             $table->timestamps();
+
         });
     }
 
