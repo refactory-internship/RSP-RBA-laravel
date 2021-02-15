@@ -15,16 +15,21 @@
                         @endif
 
                         {{ __('You are logged in!') }}
-                        <br>
-                        <ul>
-                            <li>
-                                Your E-mail: {{ Auth::user()->email }}
-                            </li>
-                            <li>
-                                Your role is: {{ Auth::user()->role->name }}
-                            </li>
-                        </ul>
-
+                            <br><br>
+                            <table class="table table-sm" aria-label="dashboard">
+                                <tbody>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td>Email</td>
+                                    <td>{{ \Illuminate\Support\Facades\Auth::user()->email }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row"></th>
+                                    <td>Role</td>
+                                    <td>{{ \Illuminate\Support\Facades\Auth::user()->role->name }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
                     </div>
                 </div>
             </div>

@@ -28,10 +28,10 @@
                                     <td>{{ date('j/m/Y', strtotime($data->booking_time)) }}</td>
                                     <td>{{ date('j/m/Y, G:i', strtotime($data->check_in_time)) }}</td>
                                     <td>{{ date('j/m/Y, G:i', strtotime($data->check_out_time)) }}</td>
-                                    <td><i class="fa fa-ban text-danger"></i></td>
+                                    <td><i class="fa fa-check text-success"></i></td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{ route('user.bookings.show', $data->id) }}"
+                                            <a href="{{ route('user.bookings.finished.detail', $data->id) }}"
                                                class="btn btn-outline-secondary">
                                                 <i class="fa fa-eye"></i>
                                                 Check Details

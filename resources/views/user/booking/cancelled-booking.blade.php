@@ -16,7 +16,6 @@
                                 <th scope="col">Booking Time</th>
                                 <th scope="col">Check-In Time</th>
                                 <th scope="col">Check-Out Time</th>
-                                <th scope="col">Finished</th>
                                 <th scope="col"></th>
                             </tr>
                             </thead>
@@ -28,10 +27,9 @@
                                     <td>{{ date('j/m/Y', strtotime($data->booking_time)) }}</td>
                                     <td>{{ date('j/m/Y, G:i', strtotime($data->check_in_time)) }}</td>
                                     <td>{{ date('j/m/Y, G:i', strtotime($data->check_out_time)) }}</td>
-                                    <td><i class="fa fa-ban text-danger"></i></td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{ route('user.bookings.show', $data->id) }}"
+                                            <a href="{{ route('user.bookings.cancelled.detail', $data->id) }}"
                                                class="btn btn-outline-secondary">
                                                 <i class="fa fa-eye"></i>
                                                 Check Details
@@ -42,7 +40,6 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{ $booking->links() }}
                         @if(session()->has('message'))
                             <div class="alert alert-success">
                                 <button type="button" class="close" data-dismiss="alert">×</button>

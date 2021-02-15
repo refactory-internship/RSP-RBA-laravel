@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\RoomsController;
 use App\Http\Controllers\BookingsController;
+use App\Http\Controllers\CancelledBookingsController;
+use App\Http\Controllers\FinishedBookingsController;
 use App\Http\Controllers\UserRoomController;
 use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
@@ -32,11 +34,27 @@ Route::prefix('admin')->middleware(['auth', 'auth.isAdmin'])->name('admin.')->gr
 
 Route::prefix('user')->middleware(['auth', 'auth.isAuthorizedGuest'])->name('user.')->group(function () {
     Route::resource('/bookings', BookingsController::class)
-    ->except(['create']);
+        ->except(['create']);
+
     Route::get('/bookings/room/{room}', [BookingsController::class, 'createBooking'])
         ->name('bookings.createBooking');
     Route::post('/bookings/{booking}', [BookingsController::class, 'checkIn'])
         ->name('bookings.checkIn');
+
     Route::resource('/rooms', UserRoomController::class)
         ->except(['create', 'store', 'edit', 'update', 'destroy']);
+
+    Route::get('/booking/finished', [FinishedBookingsController::class, 'index'])
+        ->name('bookings.finished');
+    Route::get('/booking/finished/{booking}', [FinishedBookingsController::class, 'show'])
+        ->name('bookings.finished.detail');
+
+    Route::get('booking/cancelled', [CancelledBookingsController::class, 'index'])
+        ->name('bookings.cancelled');
+    Route::get('booking/cancelled/{booking}', [CancelledBookingsController::class, 'show'])
+        ->name('bookings.cancelled.detail');
+    Route::put('booking/cancelled/{booking}', [CancelledBookingsController::class, 'restore'])
+        ->name('bookings.cancelled.restore');
+    Route::delete('booking/cancelled/{booking}', [CancelledBookingsController::class, 'delete'])
+        ->name('bookings.cancelled.delete');
 });
