@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\RoomsController;
 use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\CancelledBookingsController;
+use App\Http\Controllers\DeletedRoomsController;
 use App\Http\Controllers\FinishedBookingsController;
 use App\Http\Controllers\UserRoomController;
 use App\Models\Booking;
@@ -30,6 +31,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::prefix('admin')->middleware(['auth', 'auth.isAdmin'])->name('admin.')->group(function () {
     Route::resource('/rooms', RoomsController::class);
+
+    Route::get('/room/deleted', [DeletedRoomsController::class, 'index'])
+        ->name('rooms.deleted');
+    Route::put('/room/deleted/{room}', [DeletedRoomsController::class, 'restore'])
+        ->name('rooms.deleted.restore');
+    Route::delete('/room/deleted/{room}', [DeletedRoomsController::class, 'delete'])
+        ->name('rooms.deleted.delete');
 });
 
 Route::prefix('user')->middleware(['auth', 'auth.isAuthorizedGuest'])->name('user.')->group(function () {

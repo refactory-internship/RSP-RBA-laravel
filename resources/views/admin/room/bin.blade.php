@@ -4,16 +4,7 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card text-center">
-                    <div class="card-header">
-                        <ul class="nav nav-tabs card-header-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="true" href="#">Rooms Data</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.rooms.create') }}">Create New Room</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <div class="card-header">Deleted Rooms</div>
                     <div class="card-body m-3">
                         <table class="table table-hover" aria-describedby="rooms table">
                             <thead>
@@ -32,40 +23,38 @@
                                     <td>{{ $data->room_capacity }} Person</td>
                                     <td>
                                         <div class="btn-group">
-                                            <a href="{{ route('admin.rooms.show', $data->id) }}"
-                                               class="btn btn-outline-secondary">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            <a href="{{ route('admin.rooms.edit', $data->id) }}"
-                                               class="btn btn-outline-secondary">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <button type="button" class="btn btn-outline-secondary"
+                                            <button type="button" class="btn btn-outline-success"
                                                     onclick="event.preventDefault();
-                                                        document.getElementById('deleteRoom{{ $data->id }}').submit()">
+                                                        document.getElementById('restoreRoom{{ $data->id }}').submit()">
+                                                <i class="fa fa-undo"></i>
+                                            </button>
+
+                                            <button type="button" class="btn btn-outline-danger"
+                                                    onclick="event.preventDefault();
+                                                        document.getElementById('permanentDeleteRoom{{ $data->id }}').submit()">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </div>
                                     </td>
                                 </tr>
-                                <form id="deleteRoom{{ $data->id }}"
-                                      action="{{ route('admin.rooms.destroy', $data->id) }}" method="post">
+                                <form id="restoreRoom{{ $data->id }}"
+                                      action="{{ route('admin.rooms.deleted.restore', $data->id) }}" method="post">
+                                    @method('PUT')
+                                    @csrf
+                                </form>
+                                <form id="permanentDeleteRoom{{ $data->id }}"
+                                      action="{{ route('admin.rooms.deleted.delete', $data->id) }}" method="post">
                                     @method('DELETE')
                                     @csrf
                                 </form>
                             @endforeach
                             </tbody>
                         </table>
-                        {{ $room->links() }}
                         @if(session()->has('danger'))
                             <div class="alert alert-danger">
                                 <button type="button" class="close" data-dismiss="alert">×</button>
                                 {{ session()->get('danger') }}
                             </div>
-                        @elseif(session()->has('message'))
-                            <div class="alert alert-success">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                {{ session()->get('message') }}
                         @endif
                     </div>
                 </div>

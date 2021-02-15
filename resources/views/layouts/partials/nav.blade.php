@@ -25,7 +25,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('admin.rooms.deleted') }}">
                                     <i class="fa fa-trash"></i>
                                     Bin
                                 </a>
