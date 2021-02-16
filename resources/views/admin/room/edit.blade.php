@@ -18,16 +18,29 @@
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Room Name</span>
-                                <input type="text" class="form-control" aria-label="room_name" name="room_name"
+                                <input type="text" class="form-control @error('room_name') is-invalid @enderror"
+                                       aria-label="room_name" name="room_name"
                                        value="{{ $room->room_name }}">
 
+                                @error('room_name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
 
                             <label for="room_capacity">Room Capacity</label>
                             <div class="input-group mb-3">
-                                <input type="number" class="form-control" placeholder="Room Capacity" id="room_capacity"
+                                <input type="text" class="form-control @error('room_capacity') is-invalid @enderror"
+                                       placeholder="Room Capacity" id="room_capacity"
                                        name="room_capacity" value="{{ $room->room_capacity }}">
                                 <span class="input-group-text">Person</span>
+
+                                @error('room_capacity')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
