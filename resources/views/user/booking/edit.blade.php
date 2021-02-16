@@ -9,13 +9,22 @@
                         <strong>Booking Form</strong>
                     </div>
                     <div class="card-body m-3">
-                        <form action="{{ route('user.bookings.update', $booking->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('user.bookings.update', $booking->id) }}" method="post"
+                              enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
                             <label for="total_person">Total Person</label>
                             <div class="input-group mb-3">
-                                <input type="number" class="form-control" id="total_person" name="total_person" value="{{ $booking->total_person }}">
+                                <input type="text" class="form-control @error('total_person') is-invalid @enderror"
+                                       id="total_person" name="total_person"
+                                       value="{{ $booking->total_person }}">
                                 <span class="input-group-text">Person</span>
+
+                                @error('total_person')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="note">Note</label>
@@ -24,10 +33,19 @@
                             </div>
                             <label for="booking_time">Booking Time</label>
                             <div class="input-group mb-3">
-                                <input type="date" class="form-control" name="booking_time" id="booking_time" value="{{ $booking->getFormattedBookingTime() }}">
+                                <input type="date" class="form-control @error('booking_time') is-invalid @enderror"
+                                       name="booking_time" id="booking_time"
+                                       value="{{ $booking->getFormattedBookingTime() }}">
+
+                                @error('booking_time')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <div class="mb-3">
-                                <a href="{{ route('user.bookings.show', $booking->id) }}" class="btn btn-outline-secondary">
+                                <a href="{{ route('user.bookings.show', $booking->id) }}"
+                                   class="btn btn-outline-secondary">
                                     <i class="fa fa-arrow-circle-left"></i>
                                     Back
                                 </a>

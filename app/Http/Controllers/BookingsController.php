@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Bookings\Store;
 use App\Mail\BookingDetails;
 use App\Mail\BookingUpdateMail;
 use App\Mail\CheckInMail;
@@ -48,9 +49,8 @@ class BookingsController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Store $request)
     {
-        //
         $room = Room::find($request->room_id);
         $user = Auth::user();
         if ($request->total_person > $room->room_capacity) {
@@ -65,9 +65,7 @@ class BookingsController extends Controller
                 'check_in_time' => date_create($request->booking_time)->setTime(9, 00),
                 'check_out_time' => date_create($request->booking_time)->setTime(16, 00)
             ]);
-
             Mail::to($user->email)->send(new BookingDetails());
-
             return redirect()->back()->with('message', 'Your booking has been stored successfully!');
         }
     }
@@ -80,7 +78,6 @@ class BookingsController extends Controller
      */
     public function show($id)
     {
-        //
         $booking = Booking::find($id);
         return view('user.booking.show', compact('booking'));
     }
@@ -93,7 +90,6 @@ class BookingsController extends Controller
      */
     public function edit($id)
     {
-        //
         $booking = Booking::find($id);
         return view('user.booking.edit', compact('booking'));
     }
@@ -105,9 +101,8 @@ class BookingsController extends Controller
      * @param \App\Models\Booking $booking
      * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Store $request, $id)
     {
-        //
         $user = Auth::user();
         $booking = Booking::find($id);
         if ($request->total_person > $booking->room->room_capacity) {

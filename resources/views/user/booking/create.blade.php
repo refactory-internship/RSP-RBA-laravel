@@ -13,17 +13,31 @@
                             @csrf
                             <label for="total_person">Total Person</label>
                             <div class="input-group mb-3">
-                                <input type="number" class="form-control" id="total_person" name="total_person">
+                                <input type="text" class="form-control @error('total_person') is-invalid @enderror"
+                                       id="total_person" name="total_person" value="{{ old('total_person') }}">
                                 <span class="input-group-text">Person</span>
+
+                                @error('total_person')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="note">Note</label>
                                 <textarea class="form-control" id="note" name="note"
-                                                                    style="resize: none"></textarea>
+                                          style="resize: none"></textarea>
                             </div>
                             <label for="booking_time">Booking Time</label>
                             <div class="input-group mb-3">
-                                <input type="date" class="form-control" name="booking_time" id="booking_time">
+                                <input type="date" class="form-control @error('booking_time') is-invalid @enderror"
+                                       name="booking_time" id="booking_time" value="{{ old('booking_time') }}">
+
+                                @error('booking_time')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <input type="hidden" name="room_id" value="{{$room->id}}">
                             <div class="mb-3">
