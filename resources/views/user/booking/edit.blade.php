@@ -9,6 +9,7 @@
                         <strong>Booking Form</strong>
                     </div>
                     <div class="card-body m-3">
+                        <!-- Update Booking Form -->
                         <form action="{{ route('user.bookings.update', $booking->id) }}" method="post"
                               enctype="multipart/form-data">
                             @method('PUT')
@@ -51,14 +52,16 @@
                                 </a>
                                 <input type="submit" value="Submit" class="btn btn-primary">
                                 <div class="btn-group float-right">
-                                    <button type="button" class="btn btn-outline-danger"
-                                            onclick="event.preventDefault();
-                                            document.getElementById('deleteBooking').submit()">
+
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                            data-bs-target="#staticBackdrop">
                                         <i class="fa fa-trash"></i>
                                         Cancel This Booking
                                     </button>
                                 </div>
                             </div>
+                            <!-- Display Error Message -->
                             @if(session()->has('message'))
                                 <div class="alert alert-success">
                                     <button type="button" class="close" data-dismiss="alert">×</button>
@@ -70,13 +73,45 @@
                                     {{ session()->get('error') }}
                                 </div>
                             @endif
+                        <!-- End Display Error Message -->
                         </form>
+                        <!-- End Update Booking Form -->
+                        <!-- Cancel Booking Form Action -->
                         <form action="{{ route('user.bookings.destroy', $booking->id) }}"
                               id="deleteBooking"
                               method="post">
                             @method('DELETE')
                             @csrf
                         </form>
+                        <!-- End Cancel Booking Form Action -->
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-danger" id="staticBackdropLabel">Delete
+                                            Confirmation</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure want to cancel this booking?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button type="button" class="btn btn-outline-danger"
+                                                onclick="event.preventDefault();
+                                            document.getElementById('deleteBooking').submit()">
+                                            Yes, Cancel This Booking
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Modal -->
                     </div>
                 </div>
             </div>

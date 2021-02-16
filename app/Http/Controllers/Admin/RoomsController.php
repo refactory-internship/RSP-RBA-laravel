@@ -55,7 +55,7 @@ class RoomsController extends Controller
         //
         Room::create($request->validated());
 
-        return redirect()->back()->with('message', 'Room added successfully!');
+        return redirect('/admin/rooms')->with('message', 'Room added successfully!');
     }
 
     /**
@@ -94,7 +94,7 @@ class RoomsController extends Controller
     {
         //
         $room->update($request->validated());
-        return redirect()->back()->with('message', 'Room updated successfully!');
+        return redirect('/admin/rooms')->with('message', 'Room updated successfully!');
     }
 
     /**
@@ -107,6 +107,6 @@ class RoomsController extends Controller
     {
         //
         $room->delete();
-        return redirect()->back()->with('danger', 'Room deleted successfully!');
+        return redirect('/admin/rooms')->with('danger', 'Room deleted successfully!');
     }
 }

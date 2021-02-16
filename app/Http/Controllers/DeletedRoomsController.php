@@ -29,13 +29,13 @@ class DeletedRoomsController extends Controller
     {
         $room = Room::onlyTrashed()->find($id);
         $room->restore();
-        return redirect('admin/rooms')->with('message', 'Room has been restored!');
+        return redirect('admin/room/deleted')->with('message', 'Room has been restored!');
     }
 
     public function delete($id)
     {
         $room = Room::onlyTrashed()->find($id);
         $room->forceDelete();
-        return redirect('admin/rooms')->with('danger', 'Room has been deleted permanently!');
+        return redirect('admin/room/deleted')->with('danger', 'Room has been deleted permanently!');
     }
 }
