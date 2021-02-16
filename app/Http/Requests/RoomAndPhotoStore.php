@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Rooms;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Store extends FormRequest
+class RoomAndPhotoStore extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,14 @@ class Store extends FormRequest
      */
     public function rules()
     {
-        return [
-            'room_name' => 'required',
-            'room_capacity' => 'required|numeric',
+        $formRequests = [
+            \App\Http\Requests\Rooms\Store::class,
+            \App\Http\Requests\PhotoRooms\Store::class
         ];
+        $rules = [];
+        foreach ($formRequests as $request) {
+            $rules = array_merge($rules, (new $request)->rules());
+        }
+        return $rules;
     }
 }

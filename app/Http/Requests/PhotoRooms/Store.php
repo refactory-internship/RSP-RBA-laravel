@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Rooms;
+namespace App\Http\Requests\PhotoRooms;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,8 +24,8 @@ class Store extends FormRequest
     public function rules()
     {
         return [
-            'room_name' => 'required',
-            'room_capacity' => 'required|numeric',
+            'photo' => 'required',
+            'photo.*' => 'mimes:jpg,jpeg,png'
         ];
     }
 }

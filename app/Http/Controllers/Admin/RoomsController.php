@@ -4,22 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Rooms\Store;
+use App\Models\PhotoRooms;
 use App\Models\Room;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
-
 
 class RoomsController extends Controller
 {
-    public function _construct()
-    {
-        $this->dropbox = Storage::disk('dropbox')->getDriver()->getAdapter()->getClient();
-    }
+    private $roomIndex = '/admin/rooms';
 
     /**
      * Display a listing of the resource.
@@ -47,21 +43,35 @@ class RoomsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Store $request
+     * @return RedirectResponse
      */
     public function store(Store $request)
     {
-        //
-        Room::query()->create($request->validated());
+        $room = Room::query()->create($request->validated());
+        $files = $request->file('photo');
+        $roomID = 'ROOM_NO_' . $room->id;
+        $storagePath = 'storage/photos/' . $roomID . '/';
 
-        return redirect('/admin/rooms')->with('message', 'Room added successfully!');
+        foreach ($files as $file) {
+            $name = $roomID . '_' . uniqid();
+            $ext = $file->getClientOriginalExtension();
+            $fileName = $name . '.' . $ext;
+            Storage::putFileAs('public/photos/' . $roomID . '/', $file, $fileName);
+
+            PhotoRooms::query()->create([
+                'room_id' => $room->id,
+                'photo' => $storagePath . $fileName
+            ]);
+        }
+
+        return redirect($this->roomIndex)->with('message', 'Room added successfully!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Room $room
+     * @param Room $room
      * @return Application|Factory|View|Response
      */
     public function show(Room $room)
@@ -74,7 +84,7 @@ class RoomsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Room $room
+     * @param Room $room
      * @return Application|Factory|View|Response
      */
     public function edit(Room $room)
@@ -86,27 +96,27 @@ class RoomsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Room $room
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Store $request
+     * @param Room $room
+     * @return RedirectResponse
      */
     public function update(Store $request, Room $room)
     {
         //
         $room->update($request->validated());
-        return redirect('/admin/rooms')->with('message', 'Room updated successfully!');
+        return redirect($this->roomIndex)->with('message', 'Room updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Room $room
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Room $room
+     * @return RedirectResponse
      */
     public function destroy(Room $room)
     {
         //
         $room->delete();
-        return redirect('/admin/rooms')->with('danger', 'Room deleted successfully!');
+        return redirect($this->roomIndex)->with('danger', 'Room deleted successfully!');
     }
 }

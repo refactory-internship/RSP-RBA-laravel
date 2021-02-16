@@ -9,6 +9,7 @@ class PhotoRooms extends Model
 {
     use HasFactory;
 
+    protected $table = 'photo_rooms';
     protected $guarded = [];
 
     public function room()
