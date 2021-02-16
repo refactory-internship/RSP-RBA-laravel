@@ -5,7 +5,7 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        Your Bookings
+                        Your Finished Bookings
                     </div>
                     <div class="card-body m-3 text-center">
                         <table class="table table-hover" aria-describedby="bookings table">

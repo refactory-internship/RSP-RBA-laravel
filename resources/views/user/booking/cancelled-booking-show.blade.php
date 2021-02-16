@@ -5,7 +5,7 @@
             <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">
-                        <strong>{{ $booking->room->room_name }} Room Check-In Details</strong>
+                        <strong>{{ $booking->room->room_name }} Room Cancelled Booking Details</strong>
                     </div>
                     <div class="card-body mb-3">
                         <table class="table table-sm" aria-label="dashboard">
@@ -53,32 +53,21 @@
                                 Back
                             </a>
                             <div class="btn-group float-right">
-                                <button type="button" class="btn btn-outline-success"
+                                <button type="button" class="btn btn-outline-secondary"
                                         onclick="event.preventDefault();
                                         document.getElementById('restoreBooking').submit()">
                                     <i class="fa fa-undo"></i>
                                     Restore
                                 </button>
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal"
                                         data-bs-target="#staticBackdrop">
                                     <i class="fa fa-trash"></i>
-                                    Cancel This Booking
+                                    Delete This Booking
                                 </button>
 
                             </div>
                         </div>
-                        @if(session()->has('message'))
-                            <div class="alert alert-success">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                {{ session()->get('message') }}
-                            </div>
-                        @elseif(session()->has('error'))
-                            <div class="alert alert-danger">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                {{ session()->get('error') }}
-                            </div>
-                        @endif
                         <form action="{{ route('user.bookings.cancelled.restore', $booking->id) }}"
                               id="restoreBooking"
                               method="post">

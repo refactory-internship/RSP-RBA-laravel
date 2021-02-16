@@ -6,7 +6,8 @@ use App\Models\Booking;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class CancelledBookingsController extends Controller
@@ -35,19 +36,23 @@ class CancelledBookingsController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function restore($id)
     {
         $booking = Booking::onlyTrashed()->find($id);
         $booking->restore();
-        return redirect('/user/bookings')->with('message', 'Your booking has been restored!');
+        return redirect('/user/booking/cancelled')->with('message', 'Your booking has been restored!');
     }
 
+    /**
+     * @param $id
+     * @return Application|RedirectResponse|Redirector
+     */
     public function delete($id)
     {
         $booking = Booking::onlyTrashed()->find($id);
         $booking->forceDelete();
-        return redirect('/user/bookings')->with('error', 'Your booking has been deleted permanently!');
+        return redirect('/user/booking/cancelled')->with('error', 'Your booking has been deleted permanently!');
     }
 }

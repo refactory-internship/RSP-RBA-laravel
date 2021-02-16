@@ -62,12 +62,7 @@
                                 </div>
                             </div>
                             <!-- Display Error Message -->
-                            @if(session()->has('message'))
-                                <div class="alert alert-success">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                    {{ session()->get('message') }}
-                                </div>
-                            @elseif(session()->has('error'))
+                            @if(session()->has('error'))
                                 <div class="alert alert-danger">
                                     <button type="button" class="close" data-dismiss="alert">×</button>
                                     {{ session()->get('error') }}

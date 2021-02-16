@@ -17,7 +17,7 @@ class FinishedBookingsController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $booking = Booking::where('user_id', $user->id)
+        $booking = Booking::query()->where('user_id', $user->id)
             ->where('isCheckedIn', true)
             ->orderBy('booking_time', 'ASC')->paginate(5);
         return view('user.booking.finished-bookings', compact('booking'));
@@ -29,7 +29,7 @@ class FinishedBookingsController extends Controller
      */
     public function show($id)
     {
-        $booking = Booking::find($id);
+        $booking = Booking::query()->find($id);
         return view('user.booking.finished-booking-show', compact('booking'));
     }
 }

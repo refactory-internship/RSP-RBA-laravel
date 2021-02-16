@@ -53,7 +53,7 @@ class RoomsController extends Controller
     public function store(Store $request)
     {
         //
-        Room::create($request->validated());
+        Room::query()->create($request->validated());
 
         return redirect('/admin/rooms')->with('message', 'Room added successfully!');
     }
