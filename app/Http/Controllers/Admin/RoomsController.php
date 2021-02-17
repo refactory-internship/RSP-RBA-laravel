@@ -15,7 +15,16 @@ use Illuminate\Support\Facades\Storage;
 
 class RoomsController extends Controller
 {
-    private $roomIndex = '/admin/rooms';
+    private $roomIndex;
+
+    /**
+     * RoomsController constructor.
+     */
+    public function __construct()
+    {
+        $this->roomIndex = '/admin/rooms';
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -51,17 +60,15 @@ class RoomsController extends Controller
         $room = Room::query()->create($request->validated());
         $files = $request->file('photo');
         $roomID = 'ROOM_NO_' . $room->id;
-        $storagePath = 'storage/photos/' . $roomID . '/';
 
         foreach ($files as $file) {
             $name = $roomID . '_' . uniqid();
-            $ext = $file->getClientOriginalExtension();
-            $fileName = $name . '.' . $ext;
-            Storage::putFileAs('public/photos/' . $roomID . '/', $file, $fileName);
+
+            $cloudinary = $file->storeOnCloudinaryAs('public/rooms/' . $roomID . '/photos', $name);
 
             PhotoRooms::query()->create([
                 'room_id' => $room->id,
-                'photo' => $storagePath . $fileName
+                'photo' => $cloudinary->getSecurePath()
             ]);
         }
 

@@ -24,8 +24,10 @@
                         <div class="m-1">
                             <strong>Room Photos</strong><br>
                             @foreach($room_photos as $data)
-                                    <img class="img-thumbnail mb-1" src="{{ asset($data->photo) }}" alt="room photo"
-                                         style="max-width: 25%; height: auto;">
+                                <img class="img-thumbnail mb-1"
+                                     src="{{ $data->photo }}"
+                                     alt="room photo"
+                                     style="max-width: 25%; height: auto;">
                             @endforeach
                         </div>
 

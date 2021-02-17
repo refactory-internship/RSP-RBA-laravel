@@ -48,7 +48,7 @@
                                 <input class="form-control" required type="file"
                                        id="photoUploader" name="photo[]" multiple>
                             </div>
-                            <div class="thumb-output mb-3"></div>
+
                             <div class="mb-3">
                                 <input type="submit" value="Submit" class="btn btn-primary">
                             </div>
