@@ -52,7 +52,6 @@
                                 </a>
                                 <input type="submit" value="Submit" class="btn btn-primary">
                                 <div class="btn-group float-right">
-
                                     <!-- Button trigger modal -->
                                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                                             data-bs-target="#staticBackdrop">
@@ -111,22 +110,35 @@
                 </div>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-7">
                 <div class="card">
                     <div class="card-header">
                         <strong>{{ $booking->room->room_name }} Room Details</strong>
                     </div>
                     <div class="card-body m-3">
-                        <div class="mb-3">
-                            <label for="room_name">Room Name</label>
-                            <input type="text" name="room_name" class="form-control" id="room_name"
-                                   value="{{ $booking->room->room_name }}" disabled>
-                        </div>
-                        <div class="mb-3">
-                            <label for="room_capacity">Room Capacity</label>
-                            <input type="text" name="room_capacity" class="form-control" id="room_capacity"
-                                   value="{{ $booking->room->room_capacity }} Person" disabled>
-                        </div>
+                        <table class="table table-sm" aria-label="room details table">
+                            <tbody>
+                            <tr>
+                                <td><strong>Room Name</strong></td>
+                                <td>{{$booking->room->room_name}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Room Capacity</strong></td>
+                                <td>{{$booking->room->room_capacity}}</td>
+                            </tr>
+                            </tbody>
+
+                            <div class="mx-1 mb-3">
+                                <strong>Room Photos</strong><br>
+                                @foreach($booking->room->photos as $data)
+                                    <img class="img-thumbnail mb-1"
+                                         src="{{ $data->photo }}"
+                                         alt="room photo"
+                                         style="max-width: 25%; height: auto;">
+                                @endforeach
+                            </div>
+
+                        </table>
                     </div>
                 </div>
             </div>

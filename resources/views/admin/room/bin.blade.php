@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card text-center">
                     <div class="card-header">Deleted Rooms</div>
                     <div class="card-body m-3">
@@ -30,7 +30,9 @@
                                             </button>
                                             <button type="button" class="btn btn-outline-secondary"
                                                     data-bs-toggle="modal"
-                                                    data-bs-target="#staticBackdrop">
+                                                    data-bs-target="#staticBackdrop"
+                                                    data-bs-url="{{ route('admin.rooms.deleted.delete', $data->id) }}"
+                                                    data-bs-id="{{ $data->id }}">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </div>
@@ -41,44 +43,45 @@
                                     @method('PUT')
                                     @csrf
                                 </form>
-                                <form id="permanentDeleteRoom{{ $data->id }}"
-                                      action="{{ route('admin.rooms.deleted.delete', $data->id) }}" method="post">
-                                    @method('DELETE')
-                                    @csrf
-                                </form>
-                                {{--Modal--}}
-                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                     data-bs-keyboard="false"
-                                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title text-danger" id="staticBackdropLabel">Delete
-                                                    Confirmation</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Are you sure want to delete this room?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-outline-secondary"
-                                                        data-bs-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="button" class="btn btn-outline-danger"
-                                                        onclick="event.preventDefault();
-                                                            document.getElementById('permanentDeleteRoom{{ $data->id }}').submit()">
-                                                    Yes, Delete This Room Permanently
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{--End Modal--}}
                             @endforeach
                             </tbody>
                         </table>
+
+                        {{--Modal--}}
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                             data-bs-keyboard="false"
+                             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-danger" id="staticBackdropLabel">
+                                            Delete Confirmation
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close">
+                                        </button>
+                                    </div>
+                                    <form id="permanentDelete" action="" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <div class="modal-body">
+                                            Are you sure want to delete this room?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                    data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="submit" class="btn btn-outline-danger">
+                                                Yes, Delete This Room Permanently
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {{--End Modal--}}
+
                         @if(session()->has('danger'))
                             <div class="alert alert-danger">
                                 <button type="button" class="close" data-dismiss="alert">×</button>

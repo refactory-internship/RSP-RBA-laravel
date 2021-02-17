@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <strong>{{ $room->room_name }} Room Details</strong>
@@ -21,7 +21,7 @@
                             </tbody>
                         </table>
 
-                        <div class="m-1">
+                        <div class="mb-3">
                             <strong>Room Photos</strong><br>
                             @foreach($room_photos as $data)
                                 <img class="img-thumbnail mb-1"
@@ -48,7 +48,7 @@
                                     Delete
                                 </button>
                             </div>
-                            <form id="deleteRoom{{ $room->id }}"
+                            <form id="deleteRoom"
                                   action="{{ route('admin.rooms.destroy', $room->id) }}" method="post">
                                 @method('DELETE')
                                 @csrf
@@ -82,7 +82,7 @@
                     </button>
                     <button type="button" class="btn btn-outline-danger"
                             onclick="event.preventDefault();
-                                document.getElementById('deleteRoom{{ $room->id }}').submit()">
+                                document.getElementById('deleteRoom').submit()">
                         Yes, Delete This Room
                     </button>
                 </div>

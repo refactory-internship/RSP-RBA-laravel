@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs">
@@ -48,7 +48,6 @@
                                 <input class="form-control" required type="file"
                                        id="photoUploader" name="photo[]" multiple>
                             </div>
-
                             <div class="mb-3">
                                 <input type="submit" value="Submit" class="btn btn-primary">
                             </div>

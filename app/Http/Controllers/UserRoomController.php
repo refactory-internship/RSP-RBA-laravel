@@ -30,7 +30,7 @@ class UserRoomController extends Controller
      */
     public function show(Room $room)
     {
-        //
-        return view('user.room.show', compact('room'));
+        $room_photos = $room->photos;
+        return view('user.room.show', compact('room', 'room_photos'));
     }
 }

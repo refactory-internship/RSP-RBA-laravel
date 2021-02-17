@@ -2,20 +2,35 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <strong>{{ $room->room_name }} Room Details</strong>
                     </div>
                     <div class="card-body m-3">
-                        <div class="mb-3">
-                            <label for="room_name">Room Name</label>
-                            <input type="text" name="room_name" class="form-control" id="room_name" value="{{ $room->room_name }}" disabled>
+                        <table class="table table-sm" aria-label="room details table">
+                            <tbody>
+                            <tr>
+                                <td><strong>Room Name</strong></td>
+                                <td>{{$room->room_name}}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Room Capacity</strong></td>
+                                <td>{{$room->room_capacity}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="mx-1 mb-3">
+                                <strong>Room Photos</strong><br>
+                                @foreach($room_photos as $data)
+                                    <img class="img-thumbnail mb-1"
+                                         src="{{ $data->photo }}"
+                                         alt="room photo"
+                                         style="max-width: 25%; height: auto;">
+                                @endforeach
                         </div>
-                        <div class="mb-3">
-                            <label for="room_capacity">Room Capacity</label>
-                            <input type="text" name="room_capacity" class="form-control" id="room_capacity" value="{{ $room->room_capacity }} Person" disabled>
-                        </div>
+
                         <div class="mb-3">
                             <a href="{{ route('user.rooms.index') }}" class="btn btn-outline-secondary">
                                 <i class="fa fa-arrow-circle-left"></i>

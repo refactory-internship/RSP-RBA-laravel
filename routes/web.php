@@ -5,8 +5,8 @@ use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\CancelledBookingsController;
 use App\Http\Controllers\DeletedRoomsController;
 use App\Http\Controllers\FinishedBookingsController;
+use App\Http\Controllers\PhotoRoomsController;
 use App\Http\Controllers\UserRoomController;
-use App\Models\Booking;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,33 +30,37 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('admin')->middleware(['auth', 'auth.isAdmin'])->name('admin.')->group(function () {
+    //Room Route Resource
     Route::resource('/rooms', RoomsController::class);
-
+    //Deleted Room Routes
     Route::get('/room/deleted', [DeletedRoomsController::class, 'index'])
         ->name('rooms.deleted');
     Route::put('/room/deleted/{room}', [DeletedRoomsController::class, 'restore'])
         ->name('rooms.deleted.restore');
     Route::delete('/room/deleted/{room}', [DeletedRoomsController::class, 'delete'])
         ->name('rooms.deleted.delete');
+    //Room's Photos Route Resource
+    Route::resource('/rooms/photo', PhotoRoomsController::class);
 });
 
 Route::prefix('user')->middleware(['auth', 'auth.isAuthorizedGuest'])->name('user.')->group(function () {
+    //Booking Route Resource
     Route::resource('/bookings', BookingsController::class)
         ->except(['create']);
-
+    //Routes for Creating New Booking and Check-In
     Route::get('/bookings/room/{room}', [BookingsController::class, 'createBooking'])
         ->name('bookings.createBooking');
     Route::post('/bookings/{booking}', [BookingsController::class, 'checkIn'])
         ->name('bookings.checkIn');
-
+    //Route for Displaying Rooms to User
     Route::resource('/rooms', UserRoomController::class)
         ->except(['create', 'store', 'edit', 'update', 'destroy']);
-
+    //Finished Booking Routes
     Route::get('/booking/finished', [FinishedBookingsController::class, 'index'])
         ->name('bookings.finished');
     Route::get('/booking/finished/{booking}', [FinishedBookingsController::class, 'show'])
         ->name('bookings.finished.detail');
-
+    //Cancelled Booking Routes
     Route::get('booking/cancelled', [CancelledBookingsController::class, 'index'])
         ->name('bookings.cancelled');
     Route::get('booking/cancelled/{booking}', [CancelledBookingsController::class, 'show'])

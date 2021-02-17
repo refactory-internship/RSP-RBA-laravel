@@ -2,7 +2,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <strong>Update Room {{ $room->room_name }}</strong>
@@ -36,6 +36,32 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <strong>Room Photos</strong><br>
+                                <div class="row">
+                                    @foreach($room->photos as $data)
+                                        <div class="col">
+                                            <div class="card" style="width: 20rem;">
+                                                <img class="card-img-top"
+                                                     src="{{ $data->photo }}"
+                                                     alt="room photo">
+                                                <div class="card-body">
+                                                    <a href="#" class="btn btn-outline-secondary">
+                                                        <i class="fa fa-pencil"></i>
+                                                        Edit
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                            <label for="photoUploader">Add More Photos</label>
+                            <div class="input-group mb-3">
+                                <input class="form-control" required type="file"
+                                       id="photoUploader" name="photo[]" multiple>
                             </div>
                             <div class="mb-3">
                                 <a href="{{ route('admin.rooms.index')}}" class="btn btn-outline-secondary">
