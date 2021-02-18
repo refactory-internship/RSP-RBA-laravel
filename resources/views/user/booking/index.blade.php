@@ -30,13 +30,11 @@
                                     <td>{{ date('j/m/Y, G:i', strtotime($data->check_out_time)) }}</td>
                                     <td><i class="fa fa-ban text-danger"></i></td>
                                     <td>
-                                        <div class="btn-group">
-                                            <a href="{{ route('user.bookings.show', $data->id) }}"
-                                               class="btn btn-outline-secondary">
-                                                <i class="fa fa-eye"></i>
-                                                Check Details
-                                            </a>
-                                        </div>
+                                        <a href="{{ route('user.bookings.show', $data->id) }}"
+                                           class="btn btn-outline-secondary">
+                                            <i class="fa fa-eye"></i>
+                                            Check Details
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

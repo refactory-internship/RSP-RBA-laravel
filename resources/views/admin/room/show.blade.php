@@ -23,12 +23,15 @@
 
                         <div class="mb-3">
                             <strong>Room Photos</strong><br>
-                            @foreach($room_photos as $data)
-                                <img class="img-thumbnail mb-1"
-                                     src="{{ $data->photo }}"
-                                     alt="room photo"
-                                     style="max-width: 25%; height: auto;">
-                            @endforeach
+                            <div class="row">
+                                @foreach($room_photos as $data)
+                                    <div class="col-md-3 mb-1">
+                                        <img class="img-thumbnail mb-1"
+                                             src="{{ $data->photo }}"
+                                             alt="room photo">
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
 
                         <div class="mb-3">

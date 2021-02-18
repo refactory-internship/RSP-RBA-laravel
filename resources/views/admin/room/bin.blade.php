@@ -31,8 +31,7 @@
                                             <button type="button" class="btn btn-outline-secondary"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#staticBackdrop"
-                                                    data-bs-url="{{ route('admin.rooms.deleted.delete', $data->id) }}"
-                                                    data-bs-id="{{ $data->id }}">
+                                                    data-bs-url="{{ route('admin.rooms.deleted.delete', $data->id) }}">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </div>

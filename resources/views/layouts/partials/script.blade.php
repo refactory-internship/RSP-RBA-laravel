@@ -10,9 +10,19 @@
         crossorigin="anonymous"></script>
 
 <script>
-    var exampleModal = document.getElementById('staticBackdrop');
-    exampleModal.addEventListener('show.bs.modal', function (event) {
-        var button = event.relatedTarget;
-        exampleModal.querySelector('#permanentDelete').action = button.getAttribute('data-bs-url');
-    });
+    if (document.getElementById('staticBackdrop')) {
+        const exampleModal = document.getElementById('staticBackdrop');
+        exampleModal.addEventListener('show.bs.modal', function (event) {
+            console.log('permanent delete room modal opened');
+            const button = event.relatedTarget;
+            exampleModal.querySelector('#permanentDelete').action = button.getAttribute('data-bs-url');
+        });
+    } else if (document.getElementById('editPhotoModal')) {
+        const editPhotoModal = document.getElementById('editPhotoModal');
+        editPhotoModal.addEventListener('show.bs.modal', function (event) {
+            console.log('edit photo modal opened');
+            const button = event.relatedTarget;
+            editPhotoModal.querySelector('#photoUpdateForm').action = button.getAttribute('data-bs-url');
+        });
+    }
 </script>

@@ -33,11 +33,11 @@
                                     <td>
                                         <div class="btn-group">
                                             <a href="{{ route('admin.rooms.show', $data->id) }}"
-                                               class="btn btn-outline-secondary">
+                                               class="btn btn-sm btn-outline-secondary">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                             <a href="{{ route('admin.rooms.edit', $data->id) }}"
-                                               class="btn btn-outline-secondary">
+                                               class="btn btn-sm btn-outline-secondary">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
                                         </div>

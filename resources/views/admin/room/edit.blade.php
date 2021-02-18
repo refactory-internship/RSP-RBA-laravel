@@ -42,16 +42,24 @@
                                 <strong>Room Photos</strong><br>
                                 <div class="row">
                                     @foreach($room->photos as $data)
-                                        <div class="col">
-                                            <div class="card" style="width: 20rem;">
+                                        <div class="col-md-3 mb-1">
+                                            <div class="card">
                                                 <img class="card-img-top"
                                                      src="{{ $data->photo }}"
                                                      alt="room photo">
                                                 <div class="card-body">
-                                                    <a href="#" class="btn btn-outline-secondary">
-                                                        <i class="fa fa-pencil"></i>
-                                                        Edit
-                                                    </a>
+                                                    <div class="btn-group d-flex">
+                                                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editPhotoModal"
+                                                                data-bs-url="{{ route('admin.photo.update', $data->id) }}">
+                                                            Edit
+                                                        </button>
+                                                        <a href="#" class="btn btn-sm btn-outline-secondary">
+                                                            <i class="fa fa-trash"></i>
+                                                            Delete
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -60,7 +68,7 @@
                             </div>
                             <label for="photoUploader">Add More Photos</label>
                             <div class="input-group mb-3">
-                                <input class="form-control" required type="file"
+                                <input class="form-control" type="file"
                                        id="photoUploader" name="photo[]" multiple>
                             </div>
                             <div class="mb-3">
@@ -71,6 +79,46 @@
                                 <input type="submit" value="Save" class="btn btn-primary">
                             </div>
                         </form>
+
+                        {{--Edit Photo Modal--}}
+                        <div class="modal fade" id="editPhotoModal" tabindex="-1"
+                             aria-labelledby="editPhotoModalLabel" aria-hidden="true"
+                             data-bs-backdrop="static"
+                             data-bs-keyboard="false">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editPhotoModalLabel">
+                                            Edit {{ $room->room_name }} Room Photos
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close">
+                                        </button>
+                                    </div>
+                                    <form id="photoUpdateForm" action="" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="modal-body">
+                                            <label for="photoUpdate">Update Photo</label>
+                                            <div class="input-group mb-3">
+                                                <input class="form-control"
+                                                       type="file"
+                                                       id="photoUpdate" name="photo">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                    data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <input type="submit" value="Update" class="btn btn-primary">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        {{--End Edit Photo Modal--}}
+
                     </div>
                 </div>
             </div>

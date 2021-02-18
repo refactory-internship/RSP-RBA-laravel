@@ -11,7 +11,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Storage;
 
 class RoomsController extends Controller
 {
@@ -63,9 +62,7 @@ class RoomsController extends Controller
 
         foreach ($files as $file) {
             $name = $roomID . '_' . uniqid();
-
             $cloudinary = $file->storeOnCloudinaryAs('public/rooms/' . $roomID . '/photos', $name);
-
             PhotoRooms::query()->create([
                 'room_id' => $room->id,
                 'photo' => $cloudinary->getSecurePath()
@@ -109,7 +106,20 @@ class RoomsController extends Controller
      */
     public function update(Store $request, Room $room)
     {
-        //
+        if ($request->hasFile('photo')){
+            $files = $request->file('photo');
+            $roomID = 'ROOM_NO_' . $room->id;
+
+            foreach ($files as $file) {
+                $name = $roomID . '_' . uniqid();
+                $cloudinary = $file->storeOnCloudinaryAs('public/rooms/' . $roomID . '/photos', $name);
+                PhotoRooms::query()->create([
+                    'room_id' => $room->id,
+                    'photo' => $cloudinary->getSecurePath()
+                ]);
+            }
+        }
+
         $room->update($request->validated());
         return redirect($this->roomIndex)->with('message', 'Room updated successfully!');
     }
