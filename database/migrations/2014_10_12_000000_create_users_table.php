@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
 
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('photo')->nullable();
+            $table->string('photo')->default('https://res.cloudinary.com/ffajarpratama/image/upload/v1613741541/public/placeholder/placeholder_rvdkjg.jpg');
             $table->rememberToken();
             $table->timestamps();
         });
