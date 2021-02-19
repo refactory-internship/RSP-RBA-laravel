@@ -11,24 +11,27 @@
                         <table class="table table-sm" aria-label="room details table">
                             <tbody>
                             <tr>
-                                <td><strong>Room Name</strong></td>
+                                <th scope="row">Room Name</th>
                                 <td>{{$room->room_name}}</td>
                             </tr>
                             <tr>
-                                <td><strong>Room Capacity</strong></td>
+                                <th scope="row">Room Capacity</th>
                                 <td>{{$room->room_capacity}}</td>
                             </tr>
                             </tbody>
                         </table>
 
-                        <div class="mx-1 mb-3">
-                                <strong>Room Photos</strong><br>
+                        <div class="mb-3">
+                            <strong>Room Photos</strong><br>
+                            <div class="row">
                                 @foreach($room_photos as $data)
-                                    <img class="img-thumbnail mb-1"
-                                         src="{{ $data->photo }}"
-                                         alt="room photo"
-                                         style="max-width: 25%; height: auto;">
+                                    <div class="col-md-3 mb-1">
+                                        <img class="img-thumbnail mb-1"
+                                             src="{{ $data->secure_url }}"
+                                             alt="room photo">
+                                    </div>
                                 @endforeach
+                            </div>
                         </div>
 
                         <div class="mb-3">

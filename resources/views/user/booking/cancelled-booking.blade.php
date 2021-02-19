@@ -20,7 +20,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($booking as $data)
+                            @forelse($booking as $data)
                                 <tr>
                                     <td>{{ $data->room->room_name }}</td>
                                     <td>{{ $data->total_person }}</td>
@@ -37,7 +37,11 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="6">No Data</td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
                         @if(session()->has('message'))

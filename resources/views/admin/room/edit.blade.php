@@ -45,7 +45,7 @@
                                         <div class="col-md-3 mb-1">
                                             <div class="card">
                                                 <img class="card-img-top"
-                                                     src="{{ $data->photo }}"
+                                                     src="{{ $data->secure_url }}"
                                                      alt="room photo">
                                                 <div class="card-body">
                                                     <div class="btn-group d-flex">
@@ -53,6 +53,7 @@
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#editPhotoModal"
                                                                 data-bs-url="{{ route('admin.photo.update', $data->id) }}">
+                                                            <i class="fa fa-pencil"></i>
                                                             Edit
                                                         </button>
                                                         <a href="#" class="btn btn-sm btn-outline-secondary">

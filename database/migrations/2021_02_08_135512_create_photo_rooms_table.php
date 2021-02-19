@@ -18,7 +18,8 @@ class CreatePhotoRoomsTable extends Migration
             $table->unsignedBigInteger('room_id')->nullable();
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('CASCADE');
 
-            $table->string('photo')->nullable();
+            $table->string('secure_url')->nullable();
+            $table->string('public_id')->nullable();
             $table->timestamps();
 
         });

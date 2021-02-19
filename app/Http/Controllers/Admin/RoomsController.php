@@ -56,16 +56,21 @@ class RoomsController extends Controller
      */
     public function store(Store $request)
     {
+        //set filename and directory path
         $room = Room::query()->create($request->validated());
         $files = $request->file('photo');
         $roomID = 'ROOM_NO_' . $room->id;
-
+        //iterate over the files
         foreach ($files as $file) {
+            //each file will have unique id
             $name = $roomID . '_' . uniqid();
+            //upload photo to cloudinary
             $cloudinary = $file->storeOnCloudinaryAs('public/rooms/' . $roomID . '/photos', $name);
+            //create new records in database
             PhotoRooms::query()->create([
                 'room_id' => $room->id,
-                'photo' => $cloudinary->getSecurePath()
+                'secure_url' => $cloudinary->getSecurePath(),
+                'public_id' => $cloudinary->getPublicId()
             ]);
         }
 

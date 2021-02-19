@@ -16,7 +16,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($room as $data)
+                            @forelse($room as $data)
                                 <tr>
                                     <th scope="row">{{$data->id}}</th>
                                     <td>{{ $data->room_name }}</td>
@@ -42,7 +42,11 @@
                                     @method('PUT')
                                     @csrf
                                 </form>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="4">No Data</td>
+                                </tr>
+                            @endforelse
                             </tbody>
                         </table>
 

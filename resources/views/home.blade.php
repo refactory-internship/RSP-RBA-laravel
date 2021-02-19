@@ -19,13 +19,11 @@
                             <table class="table table-sm" aria-label="dashboard">
                                 <tbody>
                                 <tr>
-                                    <th scope="row"></th>
-                                    <td>Email</td>
+                                    <th scope="row">Email</th>
                                     <td>{{ \Illuminate\Support\Facades\Auth::user()->email }}</td>
                                 </tr>
                                 <tr>
-                                    <th scope="row"></th>
-                                    <td>Role</td>
+                                    <th scope="row">Role</th>
                                     <td>{{ \Illuminate\Support\Facades\Auth::user()->role->name }}</td>
                                 </tr>
                                 </tbody>

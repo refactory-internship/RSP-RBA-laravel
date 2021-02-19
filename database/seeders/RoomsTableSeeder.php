@@ -17,7 +17,7 @@ class RoomsTableSeeder extends Seeder
     {
         //
         $date_format = 'Y-m-d H:i:s';
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             DB::table('rooms')->insert([
                 'room_name' => Lorem::word(),
                 'room_capacity' => 10 + ($i * 5),

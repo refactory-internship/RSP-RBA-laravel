@@ -5,7 +5,9 @@ use App\Http\Controllers\BookingsController;
 use App\Http\Controllers\CancelledBookingsController;
 use App\Http\Controllers\DeletedRoomsController;
 use App\Http\Controllers\FinishedBookingsController;
+use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\PhotoRoomsController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserRoomController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +31,21 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//profile routes
+Route::prefix('profile')->middleware('auth')->name('profile.')->group(function () {
+    Route::get('/', [ProfileController::class, 'show'])
+        ->name('show');
+    Route::get('/edit', [ProfileController::class, 'edit'])
+        ->name('edit');
+    Route::put('/update', [ProfileController::class, 'update'])
+        ->name('update');
+
+    Route::get('/edit/password', [PasswordController::class, 'edit'])
+        ->name('edit.password');
+    Route::put('/update/password', [PasswordController::class, 'update'])
+        ->name('update.password');
+});
+
 Route::prefix('admin')->middleware(['auth', 'auth.isAdmin'])->name('admin.')->group(function () {
     //Room Route Resource
     Route::resource('/rooms', RoomsController::class);
@@ -40,7 +57,8 @@ Route::prefix('admin')->middleware(['auth', 'auth.isAdmin'])->name('admin.')->gr
     Route::delete('/room/deleted/{room}', [DeletedRoomsController::class, 'delete'])
         ->name('rooms.deleted.delete');
     //Room's Photos Route Resource
-    Route::resource('/rooms/photo', PhotoRoomsController::class);
+    Route::resource('/rooms/photo', PhotoRoomsController::class)
+        ->except(['index', 'create', 'store', 'edit', 'show', 'destroy']);
 });
 
 Route::prefix('user')->middleware(['auth', 'auth.isAuthorizedGuest'])->name('user.')->group(function () {
