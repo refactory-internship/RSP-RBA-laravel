@@ -56,8 +56,8 @@ class RoomsController extends Controller
      */
     public function store(Store $request)
     {
-        //set filename and directory path
         $room = Room::query()->create($request->validated());
+        //set filename and directory path
         $files = $request->file('photo');
         $roomID = 'ROOM_NO_' . $room->id;
         //iterate over the files
@@ -111,20 +111,26 @@ class RoomsController extends Controller
      */
     public function update(Store $request, Room $room)
     {
-        if ($request->hasFile('photo')){
+        //method to update room's data and if the room has no photo, upload one
+        //check if the request has any files
+        if ($request->hasFile('photo')) {
             $files = $request->file('photo');
             $roomID = 'ROOM_NO_' . $room->id;
-
+            //iterate over the images
             foreach ($files as $file) {
+                //set filename in each iterations
                 $name = $roomID . '_' . uniqid();
+                //upload file to cloudinary
                 $cloudinary = $file->storeOnCloudinaryAs('public/rooms/' . $roomID . '/photos', $name);
+                //add new record
                 PhotoRooms::query()->create([
                     'room_id' => $room->id,
-                    'photo' => $cloudinary->getSecurePath()
+                    'secure_url' => $cloudinary->getSecurePath(),
+                    'public_id' => $cloudinary->getSecurePath(),
                 ]);
             }
         }
-
+        //update room's data with or without the image
         $room->update($request->validated());
         return redirect($this->roomIndex)->with('message', 'Room updated successfully!');
     }
