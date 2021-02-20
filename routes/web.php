@@ -44,6 +44,11 @@ Route::prefix('profile')->middleware('auth')->name('profile.')->group(function (
         ->name('edit.password');
     Route::put('/update/password', [PasswordController::class, 'update'])
         ->name('update.password');
+
+    Route::put('/update/photo', [ProfileController::class, 'updatePhoto'])
+        ->name('update.photo');
+    Route::delete('/delete/photo', [ProfileController::class, 'deletePhoto'])
+        ->name('delete.photo');
 });
 
 Route::prefix('admin')->middleware(['auth', 'auth.isAdmin'])->name('admin.')->group(function () {

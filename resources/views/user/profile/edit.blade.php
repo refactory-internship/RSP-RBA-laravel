@@ -7,11 +7,17 @@
                     <img src="{{ $user->photo }}" class="card-img-top" alt="profile picture">
                     <div class="card-body">
                         <div class="btn-group d-flex">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editPhotoModal"
+                                    data-bs-url="{{ route('profile.update.photo') }}">
                                 <i class="fa fa-pencil"></i>
                                 Edit
                             </button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop"
+                                    data-bs-url="{{ route('profile.delete.photo') }}">
                                 <i class="fa fa-trash"></i>
                                 Delete
                             </button>
@@ -59,6 +65,8 @@
                         </form>
                     </div>
                 </div>
+                @include('layouts.modals.edit-profile-photo')
+                @include('layouts.modals.delete-photo')
             </div>
         </div>
     </div>

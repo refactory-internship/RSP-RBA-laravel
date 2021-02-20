@@ -80,6 +80,10 @@
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <img class="rounded-circle my-auto"
+                                 src="{{ \Illuminate\Support\Facades\Auth::user()->photo }}"
+                                 alt="profile picture"
+                                 style="width: 32px; height: 32px; margin-right: 10px;">
                             {{ Auth::user()->email }}
                         </a>
 
