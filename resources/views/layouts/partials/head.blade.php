@@ -1,7 +1,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="icon" href="{{ asset('placeholder/laravel-logo.png') }}">
+<link rel="icon" href="https://res.cloudinary.com/ffajarpratama/image/upload/v1613807929/public/app/laravel-logo_r6q5xg.png">
 
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">

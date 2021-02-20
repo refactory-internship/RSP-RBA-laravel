@@ -6,7 +6,7 @@
                 <div class="card">
                     <div class="card-body m-3">
                         <div class="mb-3">
-                            <img src="{{ asset('placeholder/laravel-logo.png') }}" alt="logo"
+                            <img src="https://res.cloudinary.com/ffajarpratama/image/upload/v1613807929/public/app/laravel-logo_r6q5xg.png" alt="logo"
                                  class="d-block mx-auto"
                                  style="width: 20%">
                         </div>
