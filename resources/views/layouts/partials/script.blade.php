@@ -13,16 +13,17 @@
     if (document.getElementById('staticBackdrop')) {
         const exampleModal = document.getElementById('staticBackdrop');
         exampleModal.addEventListener('show.bs.modal', function (event) {
-            console.log('permanent delete room modal opened');
             const button = event.relatedTarget;
-            exampleModal.querySelector('#permanentDelete').action = button.getAttribute('data-bs-url');
+            const form = exampleModal.querySelector('#permanentDelete').action = button.getAttribute('data-bs-url');
+            console.log(form, '(delete)');
         });
-    } else if (document.getElementById('editPhotoModal')) {
+    }
+    if (document.getElementById('editPhotoModal')) {
         const editPhotoModal = document.getElementById('editPhotoModal');
         editPhotoModal.addEventListener('show.bs.modal', function (event) {
-            console.log('edit photo modal opened');
             const button = event.relatedTarget;
-            editPhotoModal.querySelector('#photoUpdateForm').action = button.getAttribute('data-bs-url');
+            const form = editPhotoModal.querySelector('#photoUpdateForm').action = button.getAttribute('data-bs-url');
+            console.log(form, '(update)');
         });
     }
 </script>

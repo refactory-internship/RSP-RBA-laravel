@@ -56,10 +56,13 @@
                                                             <i class="fa fa-pencil"></i>
                                                             Edit
                                                         </button>
-                                                        <a href="#" class="btn btn-sm btn-outline-secondary">
+                                                        <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#staticBackdrop"
+                                                                data-bs-url="{{ route('admin.photo.destroy', $data->id) }}">
                                                             <i class="fa fa-trash"></i>
                                                             Delete
-                                                        </a>
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -80,46 +83,8 @@
                                 <input type="submit" value="Save" class="btn btn-primary">
                             </div>
                         </form>
-
-                        {{--Edit Photo Modal--}}
-                        <div class="modal fade" id="editPhotoModal" tabindex="-1"
-                             aria-labelledby="editPhotoModalLabel" aria-hidden="true"
-                             data-bs-backdrop="static"
-                             data-bs-keyboard="false">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editPhotoModalLabel">
-                                            Edit {{ $room->room_name }} Room Photos
-                                        </h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close">
-                                        </button>
-                                    </div>
-                                    <form id="photoUpdateForm" action="" method="post" enctype="multipart/form-data">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="modal-body">
-                                            <label for="photoUpdate">Update Photo</label>
-                                            <div class="input-group mb-3">
-                                                <input class="form-control"
-                                                       type="file"
-                                                       id="photoUpdate" name="photo">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-outline-secondary"
-                                                    data-bs-dismiss="modal">
-                                                Close
-                                            </button>
-                                            <input type="submit" value="Update" class="btn btn-primary">
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        {{--End Edit Photo Modal--}}
-
+                        @include('layouts.modals.edit-photo')
+                        @include('layouts.modals.delete-photo')
                     </div>
                 </div>
             </div>

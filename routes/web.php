@@ -58,7 +58,7 @@ Route::prefix('admin')->middleware(['auth', 'auth.isAdmin'])->name('admin.')->gr
         ->name('rooms.deleted.delete');
     //Room's Photos Route Resource
     Route::resource('/rooms/photo', PhotoRoomsController::class)
-        ->except(['index', 'create', 'store', 'edit', 'show', 'destroy']);
+        ->except(['index', 'create', 'store', 'edit', 'show']);
 });
 
 Route::prefix('user')->middleware(['auth', 'auth.isAuthorizedGuest'])->name('user.')->group(function () {

@@ -2,7 +2,6 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-
             <div class="col-md-5">
                 <div class="card">
                     <div class="card-header">
@@ -47,59 +46,20 @@
                                 </a>
                                 <input type="submit" value="Submit" class="btn btn-primary">
                             </div>
-                            @if(session()->has('message'))
-                                <div class="alert alert-success">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                    {{ session()->get('message') }}
-                                </div>
-                            @elseif(session()->has('error'))
-                                <div class="alert alert-danger">
-                                    <button type="button" class="close" data-dismiss="alert">×</button>
-                                    {{ session()->get('error') }}
-                                </div>
-                            @endif
                         </form>
                     </div>
                 </div>
             </div>
-
             <div class="col-md-7">
                 <div class="card">
                     <div class="card-header">
                         <strong>{{ $room->room_name }} Room Details</strong>
                     </div>
                     <div class="card-body m-3">
-                        <table class="table table-sm" aria-label="room details table">
-                            <tbody>
-                            <tr>
-                                <th scope="row">Room Name</th>
-                                <td>{{$room->room_name}}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Room Capacity</th>
-                                <td>{{$room->room_capacity}}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-
-                        <div class="mb-3">
-                            <strong>Room Photos</strong><br>
-                            <div class="row">
-                                @foreach($room->photos as $data)
-                                    <div class="col-md-3 mb-1">
-                                        <img class="img-thumbnail mb-1"
-                                             src="{{ $data->secure_url }}"
-                                             alt="room photo">
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-
+                        @include('layouts.partials.room-details')
                     </div>
                 </div>
             </div>
         </div>
-
-    </div>
     </div>
 @endsection

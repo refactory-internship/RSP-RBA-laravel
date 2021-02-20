@@ -47,17 +47,7 @@
                             </tbody>
                         </table>
                         {{ $booking->links() }}
-                        @if(session()->has('message'))
-                            <div class="alert alert-success">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                {{ session()->get('message') }}
-                            </div>
-                        @elseif(session()->has('error'))
-                            <div class="alert alert-danger">
-                                <button type="button" class="close" data-dismiss="alert">×</button>
-                                {{ session()->get('error') }}
-                            </div>
-                        @endif
+                        @include('layouts.errors.error-message')
                     </div>
                 </div>
             </div>

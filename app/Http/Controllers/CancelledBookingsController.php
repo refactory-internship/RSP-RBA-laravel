@@ -53,6 +53,6 @@ class CancelledBookingsController extends Controller
     {
         $booking = Booking::onlyTrashed()->find($id);
         $booking->forceDelete();
-        return redirect('/user/booking/cancelled')->with('error', 'Your booking has been deleted permanently!');
+        return redirect('/user/booking/cancelled')->with('danger', 'Your booking has been deleted permanently!');
     }
 }

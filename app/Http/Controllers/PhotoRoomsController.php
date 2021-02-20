@@ -38,4 +38,18 @@ class PhotoRoomsController extends Controller
 
         return redirect('/admin/rooms')->with('message', 'Photo updated successfully!');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function destroy($id)
+    {
+        $photo = PhotoRooms::query()->find($id);
+        Cloudinary::destroy($photo->public_id);
+        $photo->delete();
+        return redirect('/admin/rooms')->with('danger', 'Photo deleted successfully!');
+    }
 }

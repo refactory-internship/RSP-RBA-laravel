@@ -126,7 +126,7 @@ class RoomsController extends Controller
                 PhotoRooms::query()->create([
                     'room_id' => $room->id,
                     'secure_url' => $cloudinary->getSecurePath(),
-                    'public_id' => $cloudinary->getSecurePath(),
+                    'public_id' => $cloudinary->getPublicId(),
                 ]);
             }
         }

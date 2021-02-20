@@ -41,7 +41,8 @@ class BookingsController extends Controller
      */
     public function createBooking(Room $room)
     {
-        return view('user.booking.create', compact('room'));
+        $room_photos = $room->photos;
+        return view('user.booking.create', compact('room', 'room_photos'));
     }
 
     /**
@@ -55,7 +56,7 @@ class BookingsController extends Controller
         $room = Room::query()->find($request->room_id);
         $user = Auth::user();
         if ($request->total_person > $room->room_capacity) {
-            return redirect()->back()->with('error', "Total person is more than the room's capacity!");
+            return redirect()->back()->with('danger', "Total person is more than the room's capacity!");
         } else {
             Booking::query()->create([
                 'user_id' => $user->id,
@@ -92,7 +93,9 @@ class BookingsController extends Controller
     public function edit($id)
     {
         $booking = Booking::query()->find($id);
-        return view('user.booking.edit', compact('booking'));
+        $room = $booking->room;
+        $room_photos = $booking->room->photos;
+        return view('user.booking.edit', compact('booking', 'room_photos', 'room'));
     }
 
     /**
@@ -107,7 +110,7 @@ class BookingsController extends Controller
         $user = Auth::user();
         $booking = Booking::query()->find($id);
         if ($request->total_person > $booking->room->room_capacity) {
-            return redirect()->back()->with('error', "Total person is more than the room's capacity!");
+            return redirect()->back()->with('danger', "Total person is more than the room's capacity!");
         } else {
             $booking->update([
                 'total_person' => $request->total_person,
@@ -133,7 +136,7 @@ class BookingsController extends Controller
         //
         $booking = Booking::query()->find($id);
         $booking->delete();
-        return redirect('user/bookings')->with('error', 'Your booking has been cancelled!');
+        return redirect('user/bookings')->with('danger', 'Your booking has been cancelled!');
     }
 
     /**
