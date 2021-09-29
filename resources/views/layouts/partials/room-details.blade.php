@@ -13,12 +13,16 @@
 <div class="mb-3">
     <strong>Room Photos</strong><br>
     <div class="row">
-        @foreach($room_photos as $data)
+        @forelse($room_photos as $data)
             <div class="col-md-3 mb-1">
                 <img class="img-thumbnail mb-1"
                      src="{{ $data->secure_url }}"
                      alt="room photo">
             </div>
-        @endforeach
+            @empty
+            <div class="col-md-3">
+                No Photos
+            </div>
+        @endforelse
     </div>
 </div>
